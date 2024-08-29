@@ -161,7 +161,7 @@ async def addon_stream(request: Request, type: str, id: str):
                 if url_streaming_community:
                     streams['streams'].append({'title': f'{HF}StreamingCommunity 1080p Max', 'url': url_streaming_community})
                     if quality_sc == "1080":
-                        streams['streams'].append({'title': f'{HF}StreamingCommunity 720p Max', 'url': url_720_streaming_community'})
+                        streams['streams'].append({'title': f'{HF}StreamingCommunity 720p Max', 'url': url_720_streaming_community})
                     else:
                         streams['streams'].append({'title': f'{HF}StreamingCommunity 720p Max', 'url': url_streaming_community'})
             
