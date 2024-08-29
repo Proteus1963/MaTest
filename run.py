@@ -108,9 +108,7 @@ def addon_meta(id: str):
 @app.get('/stream/{type}/{id}.json')
 async def addon_stream(type, id):
     if type not in MANIFEST['types']:
-        raise HTTPException(status_code=404)
-    if "https" or "http" in id:
-        raise HTTPException(status_code=404)    
+        raise HTTPException(status_code=404)   
     streams = {'streams': []}
     async with httpx.AsyncClient() as client:
         if type == "tv":
@@ -129,7 +127,7 @@ async def addon_stream(type, id):
             if not streams['streams']:
                 raise HTTPException(status_code=404)
             return respond_with(streams)
-        else:
+        elif "tt" or "tmdb" in id:
             logging.debug(f"Handling movie or series: {id}")
             if "kitsu" in id:
                 if ANIMEWORLD == "1":
