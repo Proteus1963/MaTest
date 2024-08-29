@@ -41,6 +41,7 @@ async def get_version(client):
 async def search(query,date,ismovie, client):
     #Do a request to get the ID of serie/move and it's slug in the URL
     response = await client.get(query, follow_redirects=True)
+    print(response)
     response = response.json()
 
     for item in response['data']:
@@ -56,6 +57,7 @@ async def search(query,date,ismovie, client):
             if SC_FAST_SEARCH == "0":
                 if ismovie == 0:
                     response = await client.get ( f'https://streamingcommunity.{SC_DOMAIN}/titles/{tid}-{slug}', follow_redirects=True)
+                    print("RESPONSE 2",response)
                     pattern = r'<div[^>]*class="features"[^>]*>.*?<span[^>]*>(.*?)<\/span>'
                     match = re.search(pattern, response.text)
                     print(match.group(1).split("-")[0])
