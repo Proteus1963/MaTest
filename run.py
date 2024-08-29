@@ -18,7 +18,6 @@ from dictionaries import okru, STREAM
 import config
 
 # Configure logging
-logging.basicConfig(level=logging.DEBUG)
 
 # Initialize FastAPI app and rate limiter
 app = FastAPI()
