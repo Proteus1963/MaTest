@@ -27,6 +27,7 @@ async def get_version(client):
     try:
         base_url = f'https://streamingcommunity.{SC_DOMAIN}/richiedi-un-titolo'
         response = await client.get(base_url, headers=headers, follow_redirects=True)
+        print("TEST")
         print(response)
         #Soup the response
         soup = BeautifulSoup(response.text, "lxml")
