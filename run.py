@@ -72,7 +72,7 @@ def root():
 
 @app.get('/catalog/{type}/{id}.json')
 @limiter.limit("5/second")
-def addon_catalog(type, id):
+def addon_catalog(request: Request,type, id):
     print("STA ANDANDO TUTTO MALE")
     if type != "tv":
         raise HTTPException(status_code=404)
@@ -91,7 +91,7 @@ def addon_catalog(type, id):
 
 @app.get('/meta/tv/{id}.json')
 @limiter.limit("5/second")
-def addon_meta(id: str):
+def addon_meta(request: Request,id: str):
     # Find the channel by ID
     channel = next((ch for ch in STREAM['channels'] if ch['id'] == id), None)
     
@@ -117,7 +117,7 @@ def addon_meta(id: str):
 
 @app.get('/stream/{type}/{id}.json')
 @limiter.limit("5/second")
-async def addon_stream(type, id):
+async def addon_stream(request: Request,type, id):
     if type not in MANIFEST['types']:
         raise HTTPException(status_code=404)   
     streams = {'streams': []}
