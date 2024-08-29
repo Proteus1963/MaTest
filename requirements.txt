@@ -7,3 +7,4 @@ uvicorn
 tzdata
 lxml
 httpx
+slowapi
