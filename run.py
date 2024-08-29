@@ -171,12 +171,12 @@ async def addon_stream(request: Request, type: str, id: str):
                     if quality_lordchannel == "FULL HD":
                         streams['streams'].append({'title': f'{HF}LordChannel 1080p', 'url': url_lordchannel})
                     else:
-                        streams['streams'].append({'title': f'{HF}LordChannel 720p', 'url': url_lordchannel'})
+                        streams['streams'].append({'title': f'{HF}LordChannel 720p', 'url': url_lordchannel})
             
             if FILMPERTUTTI == "1":
                 url_filmpertutti = await filmpertutti(id, client)
                 if url_filmpertutti:
-                    streams['streams'].append({'title': 'Filmpertutti', 'url': url_filmpertutti'})
+                    streams['streams'].append({'title': 'Filmpertutti', 'url': url_filmpertutti})
             
             if TUTTIFILM == "1":
                 url_tuttifilm = await tantifilm(id, client)
@@ -188,7 +188,7 @@ async def addon_stream(request: Request, type: str, id: str):
             if STREAMINGWATCH == "1":
                 url_streamingwatch = await streamingwatch(id, client)
                 if url_streamingwatch:
-                    streams['streams'].append({'title': f'{HF}StreamingWatch 720p', 'url': url_streamingwatch'})
+                    streams['streams'].append({'title': f'{HF}StreamingWatch 720p', 'url': url_streamingwatch})
         
         if not streams['streams']:
             raise HTTPException(status_code=404)
