@@ -151,6 +151,7 @@ async def addon_stream(type, id):
                             streams['streams'].append({'title': f'{HF}Mysterious {resolution}', 'url': link})
                 if STREAMINGCOMMUNITY == "1":
                     url_streaming_community,url_720_streaming_community,quality_sc = await streaming_community(id,client)
+                    print("MUAHAHA",url_streaming_community,url_720_streaming_community,quality_sc)
                     if url_streaming_community is not None:
                         if quality_sc == "1080":
                             streams['streams'].append({'title': f'{HF}StreamingCommunity 1080p Max', 'url': url_streaming_community})
