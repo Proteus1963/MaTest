@@ -109,6 +109,8 @@ def addon_meta(id: str):
 async def addon_stream(type, id):
     if type not in MANIFEST['types']:
         raise HTTPException(status_code=404)
+    if "https" or "http" in id:
+        raise HTTPException(status_code=404)    
     streams = {'streams': []}
     async with httpx.AsyncClient() as client:
         if type == "tv":
