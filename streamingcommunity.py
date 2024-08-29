@@ -39,8 +39,22 @@ async def get_version(client):
         return version
 
 async def search(query,date,ismovie, client):
+    headers = {
+    'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:127.0) Gecko/20100101 Firefox/127.0',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.5',
+    # 'Accept-Encoding': 'gzip, deflate, br, zstd',
+    'DNT': '1',
+    'Sec-GPC': '1',
+    'Upgrade-Insecure-Requests': '1',
+    'Sec-Fetch-Dest': 'document',
+    'Sec-Fetch-Mode': 'navigate',
+    'Sec-Fetch-Site': 'cross-site',
+    'Connection': 'keep-alive',
+    # 'Cookie': 'XSRF-TOKEN=eyJpdiI6ImFoMUVXUE0zNjZxWUpnQXd1bEYvWmc9PSIsInZhbHVlIjoiMUR0RnErWVRUOFdZZE1MaUs5aHE5K01DdGcvd0NiL2ZUUWdYRisrOENwNHV2YkpSd3Y5VEZ0UkZQZlErZ2RBOHJVODVvR0t1UVF6eHZFOFhDck90a251NnV2MStpNWdJTkJqcSs0ZSt0ZGVEaFB1RWpUSTFXMmJBcE5yQ09OSnQiLCJtYWMiOiJmYTk0MDdhMmYxODY5NDllMDk2MDJkZWIzYzdmY2ZkZGMwMGMyYjZlOWM3YTIxZTE2NmMwMTBiYWY0MjhmNTgyIiwidGFnIjoiIn0%3D; streamingcommunity_session=eyJpdiI6IkR5K2VJbGVlNE56OGV6b0ZxbWp4U1E9PSIsInZhbHVlIjoiYTk3RDRnSVRFdHE2MGx2ZmNlenp5Mmw0TkRBMk5ITGk0M1Z6Q2ZSN2d3dTZ1NzROKzFzZys5dXNLYU4xQzdtWkpWZDRjYzI3QkkxczVSRVVkd2xVYi9FVVBUa1JONFpFNzVxV3FxU1VUR3diRW5Oclo4b1dPQ1BNcFlucXNhMDkiLCJtYWMiOiI0ZmU5YTNkNzZmYmU2NmRkNzJiNDRjNGFiNmQ3MTVkY2I0YTE3YTA1MmU2NzRlNmNjZWNhMzZhMmVlOGVmMzQ1IiwidGFnIjoiIn0%3D',
+    }
     #Do a request to get the ID of serie/move and it's slug in the URL
-    response = await client.get(query, follow_redirects=True)
+    response = await client.get(query, headers = headers, follow_redirects=True)
     print(response)
     response = response.json()
 
