@@ -12,6 +12,10 @@ from okru import okru_get_url
 from animeworld import animeworld
 from dictionaries import okru,STREAM
 import httpx
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+from slowapi.middleware import SlowAPIMiddleware
+
 # Configure logging
 FILMPERTUTTI = config.FILMPERTUTTI
 STREAMINGCOMMUNITY = config.STREAMINGCOMMUNITY
@@ -33,6 +37,10 @@ if MYSTERIUS == "1":
     from cool import cool
 
 app = FastAPI()
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+app.add_middleware(SlowAPIMiddleware)
+
 MANIFEST = {
     "id": "org.stremio.mammamia",
     "version": "1.0.5",
@@ -63,6 +71,7 @@ def root():
     return "Hello, this is a Stremio Addon providing HTTPS Stream for Italian Movies/Series, to install it add /manifest.json to the url and then add it into the Stremio search bar"
 
 @app.get('/catalog/{type}/{id}.json')
+@limiter.limit("5/second")
 def addon_catalog(type, id):
     print("STA ANDANDO TUTTO MALE")
     if type != "tv":
@@ -81,6 +90,7 @@ def addon_catalog(type, id):
     return respond_with(catalogs)
 
 @app.get('/meta/tv/{id}.json')
+@limiter.limit("5/second")
 def addon_meta(id: str):
     # Find the channel by ID
     channel = next((ch for ch in STREAM['channels'] if ch['id'] == id), None)
@@ -106,6 +116,7 @@ def addon_meta(id: str):
 
 
 @app.get('/stream/{type}/{id}.json')
+@limiter.limit("5/second")
 async def addon_stream(type, id):
     if type not in MANIFEST['types']:
         raise HTTPException(status_code=404)   
